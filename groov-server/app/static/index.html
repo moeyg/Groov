@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Login Test</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .user-info {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .token-info {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            word-wrap: break-word;
+        }
+        img.profile {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .info-item {
+            margin: 10px 0;
+        }
+        .label {
+            font-weight: bold;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Google Login Test</h1>
+        
+        <!-- Google 로그인 버튼 -->
+        <div id="g_id_onload"
+             data-client_id="875996968803-gkj8jt6efbqrm1ffh6e5nq7qoep8jgts.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="false"
+             data-ux_mode="popup">
+        </div>
+        <div class="g_id_signin"
+             data-type="standard"
+             data-size="large"
+             data-theme="outline"
+             data-text="sign_in_with"
+             data-shape="rectangular"
+             data-logo_alignment="left">
+        </div>
+
+        <!-- 사용자 정보 표시 영역 -->
+        <div id="userInfo" style="display: none;">
+            <div class="user-info">
+                <h2>사용자 정보</h2>
+                <img id="userPicture" class="profile" />
+                <div class="info-item">
+                    <span class="label">이름:</span>
+                    <span id="userName"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label">이메일:</span>
+                    <span id="userEmail"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label">음악 목록:</span>
+                    <span id="musicList"></span>
+                </div>
+            </div>
+            
+            <div class="token-info">
+                <h2>토큰 정보</h2>
+                <div class="info-item">
+                    <span class="label">JWT 토큰:</span>
+                    <div id="jwtToken" style="margin-top: 10px; font-family: monospace; font-size: 12px;"></div>
+                </div>
+            </div>
+            
+            <button onclick="logout()" style="margin-top: 20px; padding: 10px 20px;">로그아웃</button>
+        </div>
+    </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            // Google ID 토큰을 백엔드로 전송
+            fetch('http://localhost:8000/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: response.credential
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // JWT 토큰을 로컬 스토리지에 저장
+                localStorage.setItem('jwt_token', data.jwt_token);
+                
+                // 사용자 정보 표시
+                document.getElementById('userInfo').style.display = 'block';
+                document.getElementById('userPicture').src = data.user.picture;
+                document.getElementById('userName').textContent = data.user.name;
+                document.getElementById('userEmail').textContent = data.user.email;
+                document.getElementById('musicList').textContent = 
+                    data.user.musicList.length > 0 ? data.user.musicList.join(', ') : '없음';
+                
+                // JWT 토큰 표시
+                document.getElementById('jwtToken').textContent = data.jwt_token;
+                
+                console.log('로그인 성공:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('로그인 중 오류가 발생했습니다.');
+            });
+        }
+
+        function logout() {
+            // 로컬 스토리지에서 토큰 제거
+            localStorage.removeItem('jwt_token');
+            // 사용자 정보 숨기기
+            document.getElementById('userInfo').style.display = 'none';
+            // Google 로그아웃
+            google.accounts.id.disableAutoSelect();
+            // 페이지 새로고침
+            location.reload();
+        }
+
+        // JWT 토큰이 있다면 사용자 정보 가져오기
+        window.onload = function() {
+            const token = localStorage.getItem('jwt_token');
+            if (token) {
+                fetch('http://localhost:8000/user', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(user => {
+                    document.getElementById('userInfo').style.display = 'block';
+                    document.getElementById('userPicture').src = user.picture;
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userEmail').textContent = user.email;
+                    document.getElementById('musicList').textContent = 
+                        user.musicList.length > 0 ? user.musicList.join(', ') : '없음';
+                    document.getElementById('jwtToken').textContent = token;
+                })
+                .catch(() => {
+                    localStorage.removeItem('jwt_token');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
