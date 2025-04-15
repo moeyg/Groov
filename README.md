@@ -31,6 +31,10 @@
 
 ## <a name="features">Features</a>
 
+### 🔑 소셜 로그인
+
+- 구글 계정으로 간편하게 로그인 할 수 있습니다.
+
 ### 🎶 음원 재생
 
 - 사용자는 음원을 선택해 재생할 수 있습니다.
@@ -41,10 +45,9 @@
 
 - 자신만의 음원을 업로드하여 공유할 수 있습니다.
 
-### 💵 음원 다운로드
+### 💾 음원 다운로드
 
-- 소정의 금액을 지불하여 음원을 다운로드 할 수 있습니다.
-- 카카오페이로 결제가 가능합니다.
+- 원하는 음원을 다운로드 할 수 있습니다.
 
 ### 📱 동적 UI 업데이트
 
@@ -57,25 +60,21 @@
 
 <div align="center">
 
-|                                                         메인                                                          |
+|                                                   메인: 구글 로그인                                                   |
 | :-------------------------------------------------------------------------------------------------------------------: |
-| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/b687cb9b-7554-42c6-960d-535d2b453416" /> |
+| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/1e218282-5325-46b0-b695-2cda657506b2" /> |
 
-|                                                      마이 페이지                                                      |
+|                                                  음원 업로드 및 삭제                                                  |
 | :-------------------------------------------------------------------------------------------------------------------: |
-| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/ccfcf32c-8a0f-4d81-ab70-894f3007bff5" /> |
+| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/451ccb07-ac36-4233-ac4b-c17eaa23922c" /> |
 
-|                                           음원 디테일: 재생하기 / 다운로드                                            |
+|                                                 음원 재생 및 다운로드                                                 |
 | :-------------------------------------------------------------------------------------------------------------------: |
-| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/d868a3d7-f28a-48e3-b457-a0a694d7eec9" /> |
+| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/0a3bf952-e8d6-47fa-98b0-97f665397fb7" /> |
 
-|                                                      음원 업로드                                                      |
+|                                                       회원 탈퇴                                                       |
 | :-------------------------------------------------------------------------------------------------------------------: |
-| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/b950e238-05c6-40b3-87f4-0d9c61b37f46" /> |
-
-|                                                       음원 검색                                                       |
-| :-------------------------------------------------------------------------------------------------------------------: |
-| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/25231534-35ae-4655-8431-80e93b3cc0af" /> |
+| <img width="80%" alt="Image" src="https://github.com/user-attachments/assets/3b2d65f8-c862-463c-9422-c943886e46e2" /> |
 
 </div>
 
