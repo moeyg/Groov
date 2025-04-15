@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* font */
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/font/PretendardVariable.woff2') format('woff2');
+}
+
+body {
+  font-family: 'Pretendard';
+}
